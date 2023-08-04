@@ -10,6 +10,7 @@ function Ssg(props) {
 }
 
 export async function getStaticProps() {
+	//해당 프로젝트를 빌드시에 한번만 호출
 	console.log('ssg');
 	return {
 		props: { now: performance.now() },
@@ -19,4 +20,5 @@ export async function getStaticProps() {
 export default Ssg;
 /*
 자주 바뀌지 않는 데이터
+build 시점에 생김
 */
