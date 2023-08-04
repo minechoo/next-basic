@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from './Header.module.scss';
+
 console.log(styles);
 
 function Header() {
@@ -30,6 +31,11 @@ function Header() {
 				<li>
 					<Link href='/isr' className={currentPath === '/isr' ? styles.on : ''}>
 						ISR
+					</Link>
+				</li>
+				<li>
+					<Link href='/post' className={currentPath === '/post' ? styles.on : ''}>
+						post
 					</Link>
 				</li>
 			</ul>

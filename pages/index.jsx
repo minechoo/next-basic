@@ -25,6 +25,7 @@ export default function Home() {
 						alt='pic'
 						fill
 						quality={50}
+						priority
 					/>
 				</div>
 			</main>
