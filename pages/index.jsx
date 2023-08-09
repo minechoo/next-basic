@@ -23,6 +23,10 @@ export default function Home() {
 			body: 'abc',
 		})
 			.then((res) => res.json())
+			.then((json) => console.log(json.members));
+
+		fetch('/api/hello')
+			.then((res) => res.json())
 			.then((json) => console.log(json));
 	}, []);
 
