@@ -15,11 +15,17 @@ export default function Home() {
 	//next 자체적으로 서버쪽 요청, 응답처리
 
 	useEffect(() => {
-		//api 펄더 안쪽의 hello.js에 서버요청처리
-		fetch('/api/hello')
+		//api 폴더 안쪽의 hello.js에 서버요청처리
+		//fetch함수의 두번째 인수로 옵션값을 설정하지 핞으면 GET방식으로 전송요청
+		//{methoc: 전송방식, body:전달값(문자값)}
+		fetch('/api/hello', {
+			method: 'POST',
+			body: 'abc',
+		})
 			.then((res) => res.json())
 			.then((json) => console.log(json));
 	}, []);
+
 	return (
 		<>
 			<Head>
