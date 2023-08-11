@@ -1,7 +1,12 @@
+import { GlobalProvider } from '@/hooks/useGlobalContext';
 import '@/styles/globals.scss';
 
 export default function App({ Component, pageProps }) {
-	return <Component {...pageProps} />;
+	return (
+		<GlobalProvider>
+			<Component {...pageProps} />
+		</GlobalProvider>
+	);
 }
 // root component : 페이지관리 설정 파일
 
