@@ -9,6 +9,7 @@ import { FaCanadianMapleLeaf } from 'react-icons/fa6';
 import { FcAnswers } from 'react-icons/fc';
 
 import { useGlobalData } from '@/hooks/useGlobalContext';
+import firebase from '@/firebase';
 
 //api라우팅은 (서버요청 처리를 위해서는 express라는 프레임웍을 활용)
 //next에서는 api폴더 안쪽에 서버쪽 요청 및 응답에 대한 라우팅 설정가능
@@ -18,8 +19,18 @@ export default function Home() {
 	//서버쪽에서 프리랜더된 페이지를 가지고 온 후 이후에
 	//클라이언트쪽에 다시 서버쪽 요청가능
 	//next 자체적으로 서버쪽 요청, 응답처리
-	const data = useGlobalData();
-	console.log(data);
+	const { setLoginInfo } = useGlobalData();
+
+	useEffect(() => {
+		//시작 페이지 접속시 firebase로 현재로그인 상태값이 변경되면
+		firebase.auth().onAuthStateChanged((userInfo) => {
+			console.log(userInfo);
+			//해당값이 비어 있을때 (비로그인시) 전역 스테이트 값을 비움
+			if (userInfo === null) setLoginInfo({ displayName: '', uid: '' });
+			//값이 있으면 (로그인) firebase로 받은 유저정보값을 전역 스테이트에 덮어쓰기
+			else setLoginInfo(loginUser(userInfo.multiFactor.user));
+		});
+	}, [setLoginInfo]);
 
 	return (
 		<>
