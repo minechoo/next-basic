@@ -22,13 +22,13 @@ export default function Home() {
 	const { setLoginInfo } = useGlobalData();
 
 	useEffect(() => {
-		//시작 페이지 접속시 firebase로 현재로그인 상태값이 변경되면
+		//시작 페이지 접속시 firebase로 현재 로그인 상태값이 변경되면
 		firebase.auth().onAuthStateChanged((userInfo) => {
 			console.log(userInfo);
-			//해당값이 비어 있을때 (비로그인시) 전역 스테이트 값을 비움
+			//해당 값이 비어있을때 (비로그인시) 전역 스테이트의 값을 비움
 			if (userInfo === null) setLoginInfo({ displayName: '', uid: '' });
 			//값이 있으면 (로그인) firebase로 받은 유저정보값을 전역 스테이트에 덮어쓰기
-			else setLoginInfo(loginUser(userInfo.multiFactor.user));
+			else setLoginInfo(userInfo.multiFactor.user);
 		});
 	}, [setLoginInfo]);
 
@@ -43,6 +43,14 @@ export default function Home() {
 			<main className={styles.main}>
 				<Header />
 				<h1>Main</h1>
+				<button
+					onClick={() => {
+						firebase.auth().signOut();
+						alert('로그아웃 되었습니다.');
+					}}
+				>
+					로그아웃
+				</button>
 
 				{/* IconContext.Provider컴포넌트 임포트후 웹폰트 아이콘 활용한 부모요소에 wrapping해주면 해당 컴포넌트 안쪽에서는 context api를 이용해서 동일한 스타일을 전역으로 활용 가능 */}
 				{/* <IconContext.Provider value={{ color: 'blue', className: 'global-class-name' }}> */}
